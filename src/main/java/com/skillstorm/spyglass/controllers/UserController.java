@@ -2,6 +2,7 @@ package com.skillstorm.spyglass.controllers;
 
 import java.util.Map;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -38,11 +39,21 @@ public class UserController {
 
 	@GetMapping("/userinfo")
 	@ResponseBody // Send the data as JSON
-	public Map<String, Object> userInfo(@AuthenticationPrincipal OAuth2User user) {
+	public String userInfo(@AuthenticationPrincipal OAuth2User user) {
 		// Info about the user
-		return user.getAttributes();
+		System.out.println("User name:"+user.getAttribute("name"));
+		System.out.println("email name:"+user.getAttribute("email"));
+		return  ("name");
 
 	}
+	
+//	@GetMapping("/userinfo")
+//	@ResponseBody // Send the data as JSON
+//	public Map<String, Object> userInfo(@AuthenticationPrincipal OAuth2User user) {
+//		// Info about the user
+//		return user.getAttributes();
+//
+//	}
 
 	// Return access token
 	@GetMapping("/access")
@@ -52,7 +63,7 @@ public class UserController {
 			OAuth2AuthenticationToken authToken = (OAuth2AuthenticationToken) auth;
 			OAuth2AuthorizedClient client = clientService
 					.loadAuthorizedClient(authToken.getAuthorizedClientRegistrationId(), authToken.getName());
-			return client.getAccessToken().getTokenValue();
+			  return client.getAccessToken().getTokenValue();
 		}
 		return "";
 	}
@@ -64,17 +75,31 @@ public class UserController {
 		return ((DefaultOidcUser) user).getIdToken().getTokenValue();
 	}
 	
-	
 	@GetMapping("/signout")
-	public RedirectView signOut(HttpServletRequest request, HttpServletResponse response) {
-    // Invalidate the user's session and clear any authentication details
-		SecurityContextHolder.clearContext();
-		HttpSession session = request.getSession(false);
-		if (session != null) {
-        session.invalidate();
-		}
-    
-    // Redirect the user to the sign-in page
-		return new RedirectView("/signin");
-	}
+    public RedirectView logout(HttpServletRequest request) throws ServletException {
+        // Invalidate the session
+        request.logout();
+
+        // Revoke the OAuth2 access token
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication instanceof OAuth2AuthenticationToken) {
+            OAuth2AuthenticationToken oauthToken = (OAuth2AuthenticationToken) authentication;
+            OAuth2AuthorizedClient client = clientService.loadAuthorizedClient(
+                oauthToken.getAuthorizedClientRegistrationId(),
+                oauthToken.getName()
+            );
+            if (client != null) {
+                clientService.removeAuthorizedClient(
+                    oauthToken.getAuthorizedClientRegistrationId(),
+                    oauthToken.getName()
+                );
+            }
+        }
+
+        RedirectView redirectView = new RedirectView("http://localhost:5173/logout-success");
+        return redirectView;
+    }
+	
+	
+//
 }
