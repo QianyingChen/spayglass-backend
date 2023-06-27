@@ -36,44 +36,17 @@ public class UserController {
 		return redirectView;
 	}
 	
-
+	
 	@GetMapping("/userinfo")
 	@ResponseBody // Send the data as JSON
-	public String userInfo(@AuthenticationPrincipal OAuth2User user) {
+	public Map<String, Object> userInfo(@AuthenticationPrincipal OAuth2User user) {
 		// Info about the user
-		System.out.println("User name:"+user.getAttribute("name"));
-		System.out.println("email name:"+user.getAttribute("email"));
-		return  ("name");
+		System.out.println("Username:"+user.getAttribute("name"));
+		System.out.println("Email Address:"+user.getAttribute("email"));
+		return user.getAttributes();
 
 	}
-	
-//	@GetMapping("/userinfo")
-//	@ResponseBody // Send the data as JSON
-//	public Map<String, Object> userInfo(@AuthenticationPrincipal OAuth2User user) {
-//		// Info about the user
-//		return user.getAttributes();
-//
-//	}
 
-	// Return access token
-	@GetMapping("/access")
-	@ResponseBody
-	public String accessToken(Authentication auth) {
-		if (auth instanceof OAuth2AuthenticationToken) {
-			OAuth2AuthenticationToken authToken = (OAuth2AuthenticationToken) auth;
-			OAuth2AuthorizedClient client = clientService
-					.loadAuthorizedClient(authToken.getAuthorizedClientRegistrationId(), authToken.getName());
-			  return client.getAccessToken().getTokenValue();
-		}
-		return "";
-	}
-
-	// Return id token
-	@GetMapping("/id")
-	@ResponseBody
-	public String idToken(@AuthenticationPrincipal OAuth2User user) {
-		return ((DefaultOidcUser) user).getIdToken().getTokenValue();
-	}
 	
 	@GetMapping("/signout")
     public RedirectView logout(HttpServletRequest request) throws ServletException {

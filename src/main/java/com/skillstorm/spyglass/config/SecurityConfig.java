@@ -26,11 +26,13 @@ public class SecurityConfig {
                 .anyRequest().authenticated())
                 .csrf(csrf -> csrf.disable())
                 .oauth2Login(withDefaults());
+//              	.logout()
+//              	.logoutSuccessUrl("http://localhost:5173/logout-success")
+//              	.permitAll();
     	                         
         
         http.cors(cors -> cors.configurationSource(request -> {
             CorsConfiguration corsConfig = new CorsConfiguration();
-//            corsConfig.addAllowedOrigin("http://localhost:5173");
             corsConfig.setAllowedOrigins(Arrays.asList("http://localhost:5173"));
             corsConfig.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
             corsConfig.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
