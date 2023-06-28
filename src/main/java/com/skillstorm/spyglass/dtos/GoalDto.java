@@ -20,14 +20,14 @@ public class GoalDto {
 	@Positive(message = "Target amount should be positive")
 	private double targetAmount;
 	private double currentAmount;
-	private double savedAmount;
+
 	 
 	public GoalDto() {
 		super();
 	}
 
 	public GoalDto(Long id, String userId, String name, String description, String picture, LocalDate targetDate,
-			double targetAmount, double currentAmount, double savedAmount) {
+			double targetAmount, double currentAmount) {
 		super();
 		this.id = id;
 		this.userId = userId;
@@ -37,7 +37,6 @@ public class GoalDto {
 		this.targetDate = targetDate;
 		this.targetAmount = targetAmount;
 		this.currentAmount = currentAmount;
-		this.savedAmount = savedAmount;
 	}
 
 	public Long getId() {
@@ -104,17 +103,10 @@ public class GoalDto {
 		this.currentAmount = currentAmount;
 	}
 
-	public double getSavedAmount() {
-		return savedAmount;
-	}
-
-	public void setSavedAmount(double savedAmount) {
-		this.savedAmount = savedAmount;
-	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(currentAmount, description, id, name, picture, savedAmount, targetAmount, targetDate,
+		return Objects.hash(currentAmount, description, id, name, picture, targetAmount, targetDate,
 				userId);
 	}
 
@@ -130,7 +122,6 @@ public class GoalDto {
 		return Double.doubleToLongBits(currentAmount) == Double.doubleToLongBits(other.currentAmount)
 				&& Objects.equals(description, other.description) && Objects.equals(id, other.id)
 				&& Objects.equals(name, other.name) && Objects.equals(picture, other.picture)
-				&& Double.doubleToLongBits(savedAmount) == Double.doubleToLongBits(other.savedAmount)
 				&& Double.doubleToLongBits(targetAmount) == Double.doubleToLongBits(other.targetAmount)
 				&& Objects.equals(targetDate, other.targetDate) && Objects.equals(userId, other.userId);
 	}
@@ -139,7 +130,7 @@ public class GoalDto {
 	public String toString() {
 		return "GoalDto [id=" + id + ", userId=" + userId + ", name=" + name + ", description=" + description
 				+ ", picture=" + picture + ", targetDate=" + targetDate + ", targetAmount=" + targetAmount
-				+ ", currentAmount=" + currentAmount + ", savedAmount=" + savedAmount + "]";
+				+ ", currentAmount=" + currentAmount + ", savedAmount=" + "]";
 	}
 
 	

@@ -40,12 +40,12 @@ public class GoalService {
 	}
 
 	public GoalDto createGoal(@Valid GoalDto goalData) {
-		Goal goal = new Goal(goalData.getId(), goalData.getUserId(),goalData.getName(),goalData.getDescription(), goalData.getPicture(), goalData.getTargetDate(), goalData.getTargetAmount(), goalData.getCurrentAmount(), goalData.getSavedAmount()) ;
+		Goal goal = new Goal(goalData.getId(), goalData.getUserId(),goalData.getName(),goalData.getDescription(), goalData.getPicture(), goalData.getTargetDate(), goalData.getTargetAmount(), goalData.getCurrentAmount()) ;
 		return goalRepository.save(goal).toDto();
 	}
 
 	public GoalDto updateGoal(long id, @Valid GoalDto goalData) {
-		Goal goal = new Goal(goalData.getId(), goalData.getUserId(),goalData.getName(),goalData.getDescription(), goalData.getPicture(), goalData.getTargetDate(), goalData.getTargetAmount(), goalData.getCurrentAmount(), goalData.getSavedAmount());
+		Goal goal = new Goal(goalData.getId(), goalData.getUserId(),goalData.getName(),goalData.getDescription(), goalData.getPicture(), goalData.getTargetDate(), goalData.getTargetAmount(), goalData.getCurrentAmount());
 		goal.setId(id);
 		return goalRepository.save(goal).toDto();
 	}

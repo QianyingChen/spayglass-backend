@@ -41,16 +41,14 @@ public class Goal {
 	
 	@Column(name = "current_amount")
     private double currentAmount;
-	
-	@Column(name = "saved_amount")
-    private double savedAmount;
+
 	
 	public Goal() {
 		
 	}
 
 	public Goal(Long id, String userId, String name, String description, String picture, LocalDate targetDate,
-			double targetAmount, double currentAmount, double savedAmount) {
+			double targetAmount, double currentAmount) {
 		super();
 		this.id = id;
 		this.userId = userId;
@@ -60,7 +58,7 @@ public class Goal {
 		this.targetDate = targetDate;
 		this.targetAmount = targetAmount;
 		this.currentAmount = currentAmount;
-		this.savedAmount = savedAmount;
+
 	}
 
 	public Long getId() {
@@ -127,18 +125,10 @@ public class Goal {
 		this.currentAmount = currentAmount;
 	}
 
-	public double getSavedAmount() {
-		return savedAmount;
-	}
-
-	public void setSavedAmount(double savedAmount) {
-		this.savedAmount = savedAmount;
-	}
-	
 	public GoalDto toDto() {
 		return new GoalDto(
 				id, userId, name, description, picture, targetDate, targetAmount,
-				currentAmount, savedAmount);
+				currentAmount);
 	}
 
 	@Override
@@ -162,7 +152,7 @@ public class Goal {
 	public String toString() {
 		return "Goal [id=" + id + ", userId=" + userId + ", name=" + name + ", description=" + description
 				+ ", picture=" + picture + ", targetDate=" + targetDate + ", targetAmount=" + targetAmount
-				+ ", currentAmount=" + currentAmount + ", savedAmount=" + savedAmount + "]";
+				+ ", currentAmount=" + currentAmount + ", savedAmount=" +  "]";
 	}
 
 	
