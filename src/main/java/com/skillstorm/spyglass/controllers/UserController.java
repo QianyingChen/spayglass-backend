@@ -47,31 +47,6 @@ public class UserController {
 
 	}
 
-	
-//	@GetMapping("/signout")
-//    public RedirectView logout(HttpServletRequest request) throws ServletException {
-//        // Invalidate the session
-//        request.logout();
-//
-//        // Revoke the OAuth2 access token
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        if (authentication instanceof OAuth2AuthenticationToken) {
-//            OAuth2AuthenticationToken oauthToken = (OAuth2AuthenticationToken) authentication;
-//            OAuth2AuthorizedClient client = clientService.loadAuthorizedClient(
-//                oauthToken.getAuthorizedClientRegistrationId(),
-//                oauthToken.getName()
-//            );
-//            if (client != null) {
-//                clientService.removeAuthorizedClient(
-//                    oauthToken.getAuthorizedClientRegistrationId(),
-//                    oauthToken.getName()
-//                );
-//            }
-//        }
-//
-//        RedirectView redirectView = new RedirectView("http://localhost:5173/logout-success");
-//        return redirectView;
-//    }
-	
+
 	
 }

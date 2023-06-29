@@ -17,8 +17,4 @@ public interface GoalRepository extends JpaRepository<Goal, Long> {
 
 	List<Goal> findAllByUserId(String userId);
 	
-//	@Modifying
-//    @Query("UPDATE Goal g SET g.picture = :picture WHERE g.id = :id")
-//    void updateGoalPicture(@Param("id") long id, @Param("picture") String picture);
-
 }

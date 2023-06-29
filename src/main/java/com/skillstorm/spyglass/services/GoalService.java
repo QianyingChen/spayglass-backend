@@ -72,15 +72,6 @@ public class GoalService {
                 .orElseThrow(() -> new ResourceNotFoundException("Goal not found"));
 
         String picture = UUID.randomUUID().toString();
-//        try {
-//            s3Service.putObject(
-//                    bucketName,
-//                    "goal-images/%s/%s".formatted(id, picture),
-//                    image.getBytes()
-//            );
-//        } catch (IOException e) {
-//            throw new RuntimeException("Failed to upload goal image", e);
-//        }
         try {
             String contentType = MediaType.parseMediaType(image.getContentType()).toString(); // Get the content type from the MultipartFile
 
