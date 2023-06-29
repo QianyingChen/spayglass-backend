@@ -3,6 +3,7 @@ package com.skillstorm.spyglass.dtos;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
@@ -10,15 +11,25 @@ import javax.validation.constraints.Positive;
 
 public class GoalDto {
 	private Long id;
+	
 	private String userId;
+	
 	@NotBlank(message = "Name is required")
 	private String name;
+	
 	private String description;
+	
 	private String picture;
+	
+	@NotNull(message = "Start date is required")
+	private LocalDate startDate;
+	
 	@NotNull(message = "Target date is required")
 	private LocalDate targetDate;
+	
 	@Positive(message = "Target amount should be positive")
 	private double targetAmount;
+	
 	private double currentAmount;
 
 	 
@@ -26,18 +37,23 @@ public class GoalDto {
 		super();
 	}
 
-	public GoalDto(Long id, String userId, String name, String description, String picture, LocalDate targetDate,
-			double targetAmount, double currentAmount) {
+	public GoalDto(Long id, String userId, @NotBlank(message = "Name is required") String name, String description,
+			String picture, @NotNull(message = "Start date is required") LocalDate startDate,
+			@NotNull(message = "Target date is required") LocalDate targetDate,
+			@Positive(message = "Target amount should be positive") double targetAmount, double currentAmount) {
 		super();
 		this.id = id;
 		this.userId = userId;
 		this.name = name;
 		this.description = description;
 		this.picture = picture;
+		this.startDate = startDate;
 		this.targetDate = targetDate;
 		this.targetAmount = targetAmount;
 		this.currentAmount = currentAmount;
 	}
+
+
 
 	public Long getId() {
 		return id;
@@ -102,12 +118,18 @@ public class GoalDto {
 	public void setCurrentAmount(double currentAmount) {
 		this.currentAmount = currentAmount;
 	}
+	
+	public LocalDate getStartDate() {
+		return startDate;
+	}
 
+	public void setStartDate(LocalDate startDate) {
+		this.startDate = startDate;
+	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(currentAmount, description, id, name, picture, targetAmount, targetDate,
-				userId);
+		return Objects.hash(currentAmount, description, id, name, picture, startDate, targetAmount, targetDate, userId);
 	}
 
 	@Override
@@ -122,6 +144,7 @@ public class GoalDto {
 		return Double.doubleToLongBits(currentAmount) == Double.doubleToLongBits(other.currentAmount)
 				&& Objects.equals(description, other.description) && Objects.equals(id, other.id)
 				&& Objects.equals(name, other.name) && Objects.equals(picture, other.picture)
+				&& Objects.equals(startDate, other.startDate)
 				&& Double.doubleToLongBits(targetAmount) == Double.doubleToLongBits(other.targetAmount)
 				&& Objects.equals(targetDate, other.targetDate) && Objects.equals(userId, other.userId);
 	}
@@ -129,9 +152,11 @@ public class GoalDto {
 	@Override
 	public String toString() {
 		return "GoalDto [id=" + id + ", userId=" + userId + ", name=" + name + ", description=" + description
-				+ ", picture=" + picture + ", targetDate=" + targetDate + ", targetAmount=" + targetAmount
-				+ ", currentAmount=" + currentAmount + ", savedAmount=" + "]";
+				+ ", picture=" + picture + ", startDate=" + startDate + ", targetDate=" + targetDate + ", targetAmount="
+				+ targetAmount + ", currentAmount=" + currentAmount + "]";
 	}
+
+	
 
 	
 	 

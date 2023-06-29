@@ -33,6 +33,9 @@ public class Goal {
 	@Column
     private String picture;
 	
+	@Column(name = "satrt_date")
+	private LocalDate startDate;
+	
 	@Column(name = "target_date")
     private LocalDate targetDate;
 	
@@ -40,25 +43,25 @@ public class Goal {
     private double targetAmount;
 	
 	@Column(name = "current_amount")
-    private double currentAmount;
+	private double currentAmount;
 
 	
 	public Goal() {
 		
 	}
 
-	public Goal(Long id, String userId, String name, String description, String picture, LocalDate targetDate,
-			double targetAmount, double currentAmount) {
+	public Goal(Long id, String userId, String name, String description, String picture, LocalDate startDate,
+			LocalDate targetDate, double targetAmount, double currentAmount) {
 		super();
 		this.id = id;
 		this.userId = userId;
 		this.name = name;
 		this.description = description;
 		this.picture = picture;
+		this.startDate = startDate;
 		this.targetDate = targetDate;
 		this.targetAmount = targetAmount;
 		this.currentAmount = currentAmount;
-
 	}
 
 	public Long getId() {
@@ -124,10 +127,20 @@ public class Goal {
 	public void setCurrentAmount(double currentAmount) {
 		this.currentAmount = currentAmount;
 	}
+	
+	
+
+	public LocalDate getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(LocalDate startDate) {
+		this.startDate = startDate;
+	}
 
 	public GoalDto toDto() {
 		return new GoalDto(
-				id, userId, name, description, picture, targetDate, targetAmount,
+				id, userId, name, description, picture, startDate, targetDate, targetAmount,
 				currentAmount);
 	}
 
@@ -151,9 +164,11 @@ public class Goal {
 	@Override
 	public String toString() {
 		return "Goal [id=" + id + ", userId=" + userId + ", name=" + name + ", description=" + description
-				+ ", picture=" + picture + ", targetDate=" + targetDate + ", targetAmount=" + targetAmount
-				+ ", currentAmount=" + currentAmount + ", savedAmount=" +  "]";
+				+ ", picture=" + picture + ", startDate=" + startDate + ", targetDate=" + targetDate + ", targetAmount="
+				+ targetAmount + ", currentAmount=" + currentAmount + "]";
 	}
+
+	
 
 	
 	

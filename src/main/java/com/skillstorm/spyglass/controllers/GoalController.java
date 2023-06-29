@@ -18,10 +18,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.http.MediaType;
 
 import com.skillstorm.spyglass.dtos.GoalDto;
 import com.skillstorm.spyglass.services.GoalService;
+import org.springframework.http.HttpHeaders;
 
 @RestController
 @RequestMapping("/goals")
@@ -37,10 +41,11 @@ public class GoalController {
 		return goalService.getAllGoalsByUserId(userId);
 	}
 	
-	@GetMapping("/all")
-	public List<GoalDto> getAllGoals(){
-		return goalService.getAllGoals();
-	}
+    @GetMapping("/{id}")
+    public GoalDto getGoal(@PathVariable long id) {
+        return goalService.getGoalById(id);
+    }
+
 	
 	@PostMapping
 	public ResponseEntity<GoalDto> createGoal(@Valid @RequestBody GoalDto goalData, @AuthenticationPrincipal OAuth2User user) {
@@ -59,6 +64,19 @@ public class GoalController {
 	@DeleteMapping("/{id}")
 	public void deleteGoal(@PathVariable long id) {
 		goalService.deleteGoal(id);
+	}
+	
+	 @PostMapping(path = "/{id}/upload", consumes = "multipart/form-data")
+	public void uploadGoalImage(@RequestParam("image") MultipartFile image, @PathVariable long id, @AuthenticationPrincipal OAuth2User user) {
+		goalService.uploadGoalImage(id, image);
+	}
+
+	@GetMapping("/{id}/goal-image")
+	public ResponseEntity<byte[]> getGoalImage(@PathVariable("id") long id) {
+		byte[] goalImage = goalService.getGoalImage(id);
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.IMAGE_JPEG);
+		return new ResponseEntity<>(goalImage, headers, HttpStatus.OK);
 	}
 
 }
