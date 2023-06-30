@@ -58,6 +58,12 @@
             <artifactId>s3</artifactId>
             <version>2.20.26</version>
         </dependency>
+        <dependency>
+		  	<groupId>io.honeycomb</groupId>
+		  	<artifactId>honeycomb-opentelemetry-sdk</artifactId>
+		    <version>1.5.2</version>
+		</dependency>
+
 		
 	</dependencies>
 

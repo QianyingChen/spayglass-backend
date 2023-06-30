@@ -29,7 +29,11 @@ import org.springframework.http.HttpHeaders;
 
 @RestController
 @RequestMapping("/goals")
-@CrossOrigin(allowCredentials = "true", originPatterns = {"http://localhost:5173", "http://qianying-project3-pipeline-bucket.s3-website-us-east-1.amazonaws.com/"})
+@CrossOrigin(allowCredentials = "true", originPatterns = {
+		"http://localhost:5173",
+		"http://localhost:8089",
+		"http://qianying-project3-pipeline-bucket.s3-website-us-east-1.amazonaws.com/"})
+
 public class GoalController {
 	
 	@Autowired

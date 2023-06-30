@@ -70,7 +70,11 @@ public class SecurityConfig {
 
         http.cors().configurationSource(request -> {
             CorsConfiguration corsConfig = new CorsConfiguration();
-            corsConfig.setAllowedOrigins(Arrays.asList("http://localhost:5173"));
+            corsConfig.setAllowedOrigins(Arrays.asList("http://localhost:5173", 
+            			"http://localhost:5173",
+            			"http://localhost:8089",
+            			"http://qianying-project3-pipeline-bucket.s3-website-us-east-1.amazonaws.com/"));
+        
             corsConfig.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
             corsConfig.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
             corsConfig.setAllowCredentials(true); // Allows cookies
