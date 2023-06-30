@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
-@CrossOrigin(allowCredentials = "true", originPatterns = "http://localhost:5173")
+@CrossOrigin(allowCredentials = "true", originPatterns = {"http://localhost:5173", "http://qianying-project3-pipeline-bucket.s3-website-us-east-1.amazonaws.com/"})
 public class UserController {
 
 	@Autowired
